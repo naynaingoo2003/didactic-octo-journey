@@ -1,0 +1,8 @@
+aiohttp==3.8.5
+requests==2.31.0
+pyrogram==2.0.106
+google-auth==2.22.0
+google-auth-oauthlib==1.0.0
+google-api-python-client==2.101.0
+python-dotenv==1.0.0
+ffmpeg-python==0.2.0	

@@ -78,7 +78,7 @@ async def save_video_with_api_key(key, session, movie_data, retries=1, delay=60)
                         continue  # Retry the request
 
                     elif reason == "notFound":
-                        print(f"Error: File not found for movie: {movie_data['name']}. Removing from db_empty.json.")
+                        print(f"Error: File not found for movie: {movie_data['name']}. Removing from 1.json.")
                         remove_movie_from_json(movie_data)
                         return None  # Stop processing this movie and move to the next one
 
@@ -103,15 +103,15 @@ async def save_video_with_api_key(key, session, movie_data, retries=1, delay=60)
 
 def remove_movie_from_json(movie_data):
     try:
-        with open('db_empty.json', 'r+', encoding='utf-8') as f:
+        with open('1.json', 'r+', encoding='utf-8') as f:
             all_movies = json.load(f)
             updated_movies = [movie for movie in all_movies if movie['id'] != movie_data['id']]
             f.seek(0)
             json.dump(updated_movies, f, ensure_ascii=False, indent=4)
             f.truncate()
-        print(f"Removed {movie_data['name']} from db_empty.json.")
+        print(f"Removed {movie_data['name']} from 1.json.")
     except Exception as e:
-        print(f"Failed to remove {movie_data['name']} from db_empty.json: {e}")
+        print(f"Failed to remove {movie_data['name']} from 1.json: {e}")
 
 def download_file_from_drive(file_id, drive_service, download_path):
     request = drive_service.files().get_media(fileId=file_id)
@@ -253,7 +253,7 @@ async def process_movie_data(movie_data, app):
 
 def save_movie_data(movie_data):
     try:
-        with open('db_empty.json', 'r+', encoding='utf-8') as f:
+        with open('1.json', 'r+', encoding='utf-8') as f:
             all_movies = json.load(f)
             for i, movie in enumerate(all_movies):
                 if movie['id'] == movie_data['id']:
@@ -361,7 +361,7 @@ async def main():
         print(f"Logged in as {me.username}")
 
         # Load the movie data
-        with open('db_empty.json', 'r', encoding='utf-8') as f:
+        with open('1.json', 'r', encoding='utf-8') as f:
             movies_data = json.load(f)
 
         # Process each movie in the list
